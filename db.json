@@ -18,7 +18,7 @@
     },
     {
       "id": 3,
-      "symbol": "ATOMUSDT-updatd",
+      "symbol": "ATOMUSDT",
       "entryPrice": 0.105,
       "stoploss": 0.104,
       "targetPrice": 0.107,

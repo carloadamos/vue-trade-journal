@@ -26,10 +26,16 @@ table is-bordered is-striped is-narrow is-hoverable is-fullwidth"
           <th>{{ trade.outcome }}</th>
           <th>
             <div class="buttons">
-              <button class="button is-info is-light" @click="editTrade(trade.id)">
+              <button
+                class="button is-info is-light"
+                @click="editTrade(trade.id)"
+              >
                 Edit
               </button>
-              <button class="button is-danger is-light" @click="deleteTrade(trade.id)">
+              <button
+                class="button is-danger is-light"
+                @click="removeTrade(trade.id)"
+              >
                 Delete
               </button>
             </div>
@@ -41,13 +47,12 @@ table is-bordered is-striped is-narrow is-hoverable is-fullwidth"
 </template>
 
 <script>
-import { dataService } from '../shared';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'TradeList',
   data() {
     return {
-      trades: [],
       message: '',
     };
   },
@@ -55,19 +60,22 @@ export default {
     await this.loadTrades();
   },
   methods: {
+    ...mapActions(['getTrades', 'deleteTrade']),
     async loadTrades() {
-      this.trades = [];
       this.message = 'Loading trades ... Please wait.';
 
-      this.trades = await dataService.getTrades();
+      await this.getTrades();
       this.message = '';
     },
     editTrade(id) {
       this.$router.push({ name: 'entry', params: { id } });
     },
-    async deleteTrade(id) {
-      await dataService.deleteTrade(id);
+    async removeTrade(id) {
+      await this.deleteTrade(id);
     },
+  },
+  computed: {
+    ...mapState(['trades']),
   },
 };
 </script>

@@ -22,8 +22,15 @@
         <label class="label">Outcome</label>
         <input class="input" type="text" v-model="trade.outcome" />
       </div>
-      <button class="button is-primary add-trade" @click="save">
+      <button
+        v-if="isAddMode"
+        class="button is-primary add-trade"
+        @click="save"
+      >
         Add Trade
+      </button>
+      <button v-else class="button is-primary add-trade" @click="save">
+        Update Trade
       </button>
     </div>
   </div>
@@ -31,6 +38,7 @@
 
 <script>
 import { dataService } from '../shared/data.service';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'TradeEntry',
@@ -49,18 +57,22 @@ export default {
   async created() {
     if (this.id) {
       this.isAddMode = false;
-      this.trade = await dataService.getTrade(this.id);
+      this.trade = this.getTradeById(this.id);
     }
   },
   methods: {
+    ...mapActions(['addTrade']),
     async save() {
       if (this.isAddMode) {
-        await dataService.addTrade(this.trade);
+        await this.addTrade(this.trade);
       } else {
         await dataService.updateTrade(this.trade);
       }
       this.$router.push({ name: 'trades' });
     },
+  },
+  computed: {
+    ...mapGetters(['getTradeById']),
   },
 };
 </script>

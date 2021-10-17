@@ -5,7 +5,6 @@ const getTrades = async () => {
   try {
     const response = await axios.get(`${HOST}/trades`);
 
-    console.log('response.data', response.data);
     return response.data;
   } catch (error) {
     console.log(`error ${error}`);
@@ -49,9 +48,9 @@ const updateTrade = async (trade) => {
 
 const deleteTrade = async (id) => {
   try {
-    const response = axios.delete(`${HOST}/trades/${id}`);
+    await axios.delete(`${HOST}/trades/${id}`);
 
-    return response.data;
+    return id;
   } catch (error) {
     console.log('error');
     return null;
