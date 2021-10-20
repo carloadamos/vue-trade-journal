@@ -1,0 +1,20 @@
+{
+  "trades": [
+    {
+      "symbol": "A",
+      "entry": "123",
+      "stoploss": "123",
+      "target": "123",
+      "outcome": "123",
+      "id": 1
+    },
+    {
+      "symbol": "SF",
+      "entry": "DF",
+      "stoploss": "FFD",
+      "target": "ER",
+      "outcome": "er",
+      "id": 2
+    }
+  ]
+}
